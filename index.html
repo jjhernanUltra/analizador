@@ -4,50 +4,77 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Analizador Lexico</title>
+    <title>Analizador Léxico</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 </head>
 
 <body>
-    <div class="container shadow border p-3 mt-5 rounded">
-        <div class="row text-center fs-2">
-            <strong>Analizador Lexico</strong>
+    <div class="container shadow border p-3 pt-0 mt-5 rounded">
+        <div class="row text-center border-bottom p-1">
+            <h1 class="fw-bold">Analizador Léxico</h1>
         </div>
-        <div class="row">
-            <div class="col-4">
-                <div class="row p-2">
-                    <label class="form-label fw-bold">Ingresa la cadena</label>
-                    <input class="form-control" id="sentencia" autofocus>
-                    <label class="form-label fw-bold" id="val"></label>
-                </div>
-                <div class="row justify-content-center m-2">
-                    <div class="col-auto">
-                        <button class="btn btn-primary btn-md btn-block" id="analizar">Analizar</button>
+        <div class="row border-bottom">
+            <div class="col-4 border-end p-2">
+                <div class="row h-100">
+                    <div class="col-12">
+                        <label class="form-label fw-bold text-center">Ingresa la cadena</label>
+                        <input class="form-control" id="sentencia" autofocus>
+                        <div class="row justify-content-center pt-2">
+                            <div class="col-auto">
+                                <button class="btn btn-primary btn-md btn-block" id="analizar">Analizar</button>
+                            </div>
+                            <div class="col-auto">
+                                <button class="btn btn-danger btn-md btn-block" id="limpiar">Limpiar</button>
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-auto">
-                        <button class="btn btn-danger btn-md btn-block" id="limpiar">Limpiar</button>
+                    <div class="col-auto mt-auto mx-auto p-2">
+                        <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                            <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off">
+                            <label class="btn btn-outline-primary" for="btnradio1">Diagrama</label>
+                            <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
+                            <label class="btn btn-outline-primary" for="btnradio2">Tabla</label>
+                            </div>
                     </div>
                 </div>
             </div>
-            <div class="col-8">
-                <div class="row p-2">
-                    <table class="table text-center">
-                        <thead class="thead-dark">
+            <div class="col-8 d-grid gap-2 pb-2">
+                <div class="row m-1 pt-2">
+                    <div class="col-12 p-0">
+                        <div class="text-center fw-bold fs-3 text-white" id="val"></div>
+                    </div>
+                </div>
+                <div class="row m-1 border border-primary">
+                    <table class="table text-center table-striped m-0">
+                        <thead class="thead-dark bg-primary text-white">
                             <tr>
-                                <th scope="col">Token</th>
-                                <th scope="col">Valor</th>
+                                <th class="fs-4" style="border-bottom-width: 0px;">Token</th>
+                                <th class="fs-4" style="border-bottom-width: 0px;">Valor</th>
                             </tr>
                         </thead>
                         <tbody id="body" class="font-weight-bold">
-                            <tr><th></th><th></th></tr>
                         </tbody>
                     </table>
                 </div>
-                <div class="row p-2">
-                    <label class="form-label fw-bold">Estados</label>
-                    <input class="form-control" id="estados" autofocus>
+                <div class="row text-center m-1 border border-warning">
+                    <div class="fw-bold fs-3 bg-warning text-white">Estados</div>
+                    <table class="table text-center table-bordered table-striped-columns m-0">
+                        <thead class="thead-dark rounded">
+                            <tr id="trState">
+                            
+                            </tr>
+                        </thead>
+                        <tbody id="body" class="font-weight-bold">
+                            <tr id="trChar">
+
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
+        </div>
+        <div class="row p-1">
+            <img id="img">
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>

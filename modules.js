@@ -4,12 +4,12 @@ document.querySelector('#limpiar').addEventListener('click', () => {
 
 document.querySelector('#btnradio1').addEventListener('click', () => {
     document.querySelector('#img').removeAttribute('src');
-    document.querySelector('#img').setAttribute('src', '/DT.png');
+    document.querySelector('#img').setAttribute('src', './DT.png');
 });
 
 document.querySelector('#btnradio2').addEventListener('click', () => {
     document.querySelector('#img').removeAttribute('src');
-    document.querySelector('#img').setAttribute('src', '/TT.png');
+    document.querySelector('#img').setAttribute('src', './TT.png');
 });
 
 document.querySelector('#analizar').addEventListener('click', () => {

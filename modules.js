@@ -23,7 +23,7 @@ document.querySelector('#analizar').addEventListener('click', () => {
         simbolo_asignacion : '',
         apostrofe : "",
         valor : '',
-        simbolo_terminal : ''
+        simbolo_terminal : '',
     };
     let recS = 0;
     const regexLetra = RegExp('[A-Za-z]');
@@ -31,7 +31,7 @@ document.querySelector('#analizar').addEventListener('click', () => {
     const regexEspacio = RegExp('^\\s+$');
     a.every(element => {
         if ((element == ' ')) {
-            if (estado != 2 && estado != 3 && estado != 8 && estado != 4 && estado != 10 && estado != 12) {
+            if (estado != 2 && estado != 3 && estado != 8 && estado != 4 && estado != 10 && estado != 12 && estado != 13 && estado != 14) {
                 return true;
             }
         }
@@ -50,6 +50,7 @@ document.querySelector('#analizar').addEventListener('click', () => {
                     estado = 14;
                     estadosLista.push(estado);
                 } else {
+
                     recS = 0;
                     return false;
                 }
@@ -214,7 +215,7 @@ document.querySelector('#analizar').addEventListener('click', () => {
                     cadena.valor += element;
                     estado = 15;
                     estadosLista.push(estado);
-                } else if (element == "E" || element == "e") {
+                } else if (element == "E") {
                     cadena.valor += element;
                     estado = 17;
                     estadosLista.push(estado);
@@ -239,7 +240,7 @@ document.querySelector('#analizar').addEventListener('click', () => {
                     cadena.valor += element;
                     estado = 16;
                     estadosLista.push(estado);
-                } else if (element == "E" || element == "e") {
+                } else if (element == "E") {
                     cadena.valor += element;
                     estado = 17;
                     estadosLista.push(estado);
@@ -312,27 +313,34 @@ document.querySelector('#analizar').addEventListener('click', () => {
         val.innerHTML = 'Cadena invalida';
         val.classList.remove('bg-success');
         val.classList.add('bg-danger');
-        trChar.innerHTML += `<th>${cadEs[cadEs.length - 1]}</th>`;
+        if (estadosLista.includes(3)) {
+            trChar.innerHTML += `<th>${document.querySelector('#sentencia').value.replace(' ', '')[estadosLista.length + 1]}</th>`;
+        } else {
+            trChar.innerHTML += `<th>${document.querySelector('#sentencia').value.replace(' ', '')[estadosLista.length]}</th>`;
+        }
     }
     
     tableBody.innerHTML = '';
     for (const key in cadena) {
         if (cadena[key] != '' || key == 'valor') {
             if (key == 'valor') {
+                console.log(cadena[key]);
                 let vaNum = Number.parseFloat(cadena[key]);
                 if (estadosLista.includes(8)) {
                     tableBody.innerHTML += `<tr><th>cadena</th><th>${ cadena[key] == '' ? ' ' : cadena[key]}</th></tr>`;
                 } else if (estadosLista.includes(10)) {
-                    tableBody.innerHTML += `<tr><th>referencia variable</th><th>${cadena[key]}</th></tr>`;
+                    tableBody.innerHTML += `<tr><th>referencia a otra variable</th><th>${cadena[key]}</th></tr>`;
+                } else if (estadosLista.includes(16)) {
+                    tableBody.innerHTML += `<tr><th>real ${cadena[key].search('-') == 0 ? 'con' : 'sin'} signo y exponencial ${cadena[key][cadena[key].search('E') + 1] == '-' ? 'negativo' : 'positivo'} </th><th>${cadena[key].substring(0, 1).replace('+', '') + cadena[key].substring(1)}</th></tr>`;
+                } else if (estadosLista.includes(17)) {
+                    tableBody.innerHTML += `<tr><th>entero ${cadena[key].search('-') == 0 ? 'con' : 'sin'} signo y exponencial ${cadena[key][cadena[key].search('E') + 1] == '-' ? 'negativo' : 'positivo'} </th><th>${cadena[key].substring(0, 1).replace('+', '') + cadena[key].substring(1)}</th></tr>`;
                 } else if (Number.isInteger(vaNum)) {
                     tableBody.innerHTML += `<tr><th>entero ${vaNum < 0 ? 'con' : 'sin'} signo</th><th>${cadena[key].replace('+', '')}</th></tr>`;
-                } else if (estadosLista.includes(17)) {
-                    tableBody.innerHTML += `<tr><th>exponencial</th><th>${cadena[key].replace('+', '')}</th></tr>`;
                 } else {
                     tableBody.innerHTML += `<tr><th>real ${vaNum < 0 ? 'con' : 'sin'} signo</th><th>${cadena[key].replace('+', '')}</th></tr>`;
                 }
             } else {
-                tableBody.innerHTML += `<tr><th>${key}</th><th>${cadena[key]}</th></tr>`;
+                tableBody.innerHTML += `<tr><th>${key.replace('_', ' ')}</th><th>${cadena[key]}</th></tr>`;
             }
         }
     }
